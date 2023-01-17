@@ -14,6 +14,8 @@ public class movimento : MonoBehaviour
 
 
     public float jumpForce = 1000000f;
+    public float jumpGravity; //new add
+    public float fallGravity; //new add
 
     private float canJump = 0f;
     private float canSlide = 0f;
@@ -104,6 +106,12 @@ public class movimento : MonoBehaviour
             spaceHeld = false;
         }
 
+        if (playerRigidBody.velocity.y < 0) //new
+        {
+            playerRigidBody.gravityScale = fallGravity;
+        }
+
+
         else if (Input.GetKeyUp(KeyCode.Space) && !isJumping && !isDashing && !stopped)  // Player has released the space key without holding it. Perform the action for when Space is pressed
         {   
             if (!spaceHeld)
@@ -117,6 +125,7 @@ public class movimento : MonoBehaviour
                     animator.SetBool("jump", true);
                     animator.SetBool("isOnGround", false);
                     playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+                    playerRigidBody.gravityScale = jumpGravity; //new add
                     canJump = Time.time + 1f;
                 }        
             }

@@ -3757,7 +3757,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1554, y: -888}
+  m_AnchoredPosition: {x: -1554, y: -794}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &208233044
@@ -3780,8 +3780,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The number of cards you own and need is indicated at the top right of the
-    screen.
+  m_text: 'The lasers can be avoided by sprinting. Pay attention to the timing!
+
+
+
+    The
+    number of cards you own and need is indicated at the top right of the screen.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -42566,6 +42570,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser1
       objectReference: {fileID: 0}
+    - target: {fileID: 1986887267153497404, guid: 7e9bfd582e990e14281f428a38069be0, type: 3}
+      propertyPath: m_TagString
+      value: obstacle_laser
+      objectReference: {fileID: 0}
     - target: {fileID: 1986887267153497405, guid: 7e9bfd582e990e14281f428a38069be0, type: 3}
       propertyPath: player
       value: 
@@ -43186,6 +43194,18 @@ PrefabInstance:
       propertyPath: energyBar
       value: 
       objectReference: {fileID: 1175496277}
+    - target: {fileID: 5907867443398786247, guid: 64d0e46872932d84ea0a48ca65b4cd62, type: 3}
+      propertyPath: jumpForce
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907867443398786247, guid: 64d0e46872932d84ea0a48ca65b4cd62, type: 3}
+      propertyPath: fallGravity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907867443398786247, guid: 64d0e46872932d84ea0a48ca65b4cd62, type: 3}
+      propertyPath: jumpGravity
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6224869005400730362, guid: 64d0e46872932d84ea0a48ca65b4cd62, type: 3}
       propertyPath: m_Pitch
       value: 1

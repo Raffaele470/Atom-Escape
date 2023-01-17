@@ -87,6 +87,13 @@ public class PlayerHealthManager : MonoBehaviour
             isDamaged = true;
             StartCoroutine(PlayerDamagedRoutine());
         }
+
+        if ((collision.gameObject.tag == "obstacle_laser") && !(animator.GetBool("dash")))
+        {
+            isDamaged = true;
+            StartCoroutine(PlayerDamagedRoutine());
+        }
+
     }
 
     IEnumerator PlayerDamagedRoutine()

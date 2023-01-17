@@ -1286,7 +1286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5025459896037224843}
-  jumpForce: 13
+  jumpForce: 23
+  jumpGravity: 7.5
+  fallGravity: 1.5
   speed: 6.5
   timeToHold: 0.1
   dashingPower: 60

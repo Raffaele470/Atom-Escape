@@ -12,6 +12,7 @@ TagManager:
   - obstacle
   - playerDead
   - openGate
+  - obstacle_laser
   layers:
   - Default
   - TransparentFX

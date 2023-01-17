@@ -44640,6 +44640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser1
       objectReference: {fileID: 0}
+    - target: {fileID: 1986887267153497404, guid: 7e9bfd582e990e14281f428a38069be0, type: 3}
+      propertyPath: m_TagString
+      value: obstacle_laser
+      objectReference: {fileID: 0}
     - target: {fileID: 1986887267153497405, guid: 7e9bfd582e990e14281f428a38069be0, type: 3}
       propertyPath: player
       value: 
