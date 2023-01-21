@@ -20568,6 +20568,7 @@ GameObject:
   - component: {fileID: 1112017041}
   - component: {fileID: 1112017040}
   - component: {fileID: 1112017039}
+  - component: {fileID: 1112017044}
   m_Layer: 0
   m_Name: Level 4
   m_TagString: Untagged
@@ -21074,6 +21075,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1112017044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112017033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9dbd9fe9560f304f8efaa5020cb668e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: 0
 --- !u!1 &1114357067
 GameObject:
   m_ObjectHideFlags: 0
@@ -33972,7 +33986,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1756907585}
   m_Layer: 11
-  m_Name: ' Thorns'
+  m_Name: Thorns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

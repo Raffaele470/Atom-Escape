@@ -3782,10 +3782,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'The lasers can be avoided by sprinting. Pay attention to the timing!
 
+    Not
+    always the best choice is to dash, but to go back!
 
 
-    The
-    number of cards you own and need is indicated at the top right of the screen.'
+    The number of cards
+    you own and need is indicated at the top right of the screen.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6724,15 +6726,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- click SPACEBAR to jump
+  m_text: '- click any key/button on controller to jump
 
-    - hold SPACEBAR to dash
+    - hold the key/button
+    to dash
 
 
-    The dashing
-    allows to destroy some enemies and obstacles
+    The dashing allows to destroy some enemies and obstacles
 
-    if pressed at the right time:'
+    if
+    pressed at the right time:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20121,6 +20124,7 @@ GameObject:
   - component: {fileID: 1112017041}
   - component: {fileID: 1112017043}
   - component: {fileID: 1112017044}
+  - component: {fileID: 1112017045}
   m_Layer: 0
   m_Name: Level 1
   m_TagString: Untagged
@@ -20643,6 +20647,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1112017045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112017033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9dbd9fe9560f304f8efaa5020cb668e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: 0
 --- !u!1 &1114357067
 GameObject:
   m_ObjectHideFlags: 0
@@ -20783,7 +20800,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "The dash effect consumes energy. You can see the level of your energy
-    \nin the bar in the upper left corner."
+    \nin the bar in the upper left corner.\n\nYou can change the difficulty of the
+    game from the settings in the menu."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34539,7 +34557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1756907585}
   m_Layer: 11
-  m_Name: ' Thorns'
+  m_Name: Thorns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
