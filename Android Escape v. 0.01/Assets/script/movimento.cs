@@ -2,10 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+using UnityEngine.InputSystem;
 
 public class movimento : MonoBehaviour
 {
+
     public GameObject player;
 
     Animator animator;
@@ -69,6 +70,8 @@ public class movimento : MonoBehaviour
     [SerializeField]
     private AudioSource changeDir;
 
+    KeyCode currentKeyPressed;
+
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
@@ -95,15 +98,10 @@ public class movimento : MonoBehaviour
 
     void Update()
     {
+
         if (Time.time > canSlide)
         {
             IncreaseEnergyBar();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !isDashing &&!stopped) // Use has pressed the Space key. We don't know if they'll release or hold it, so keep track of when they started holding it.
-        {
-            spacePressedTime = Time.timeSinceLevelLoad;
-            spaceHeld = false;
         }
 
         if (playerRigidBody.velocity.y < 0) //new
@@ -112,6 +110,29 @@ public class movimento : MonoBehaviour
         }
 
 
+
+        //-----------------------------------------------|
+        //Controllo tasti da tastiera
+
+        /* OLD SYSTEM
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !isDashing &&!stopped) // Use has pressed the Space key. We don't know if they'll release or hold it, so keep track of when they started holding it.
+        {
+            spacePressedTime = Time.timeSinceLevelLoad;
+            spaceHeld = false;
+        }
+        */
+
+        //NEW SYSTEM
+        if ((Keyboard.current.anyKey.wasPressedThisFrame) && (!Keyboard.current.pKey.isPressed) && !isJumping && !isDashing && !stopped) // Use has pressed the Space key. We don't know if they'll release or hold it, so keep track of when they started holding it.
+        {
+            spacePressedTime = Time.timeSinceLevelLoad;
+            spaceHeld = false;
+        }
+
+
+
+
+        /* OLD SYSTEM
         else if (Input.GetKeyUp(KeyCode.Space) && !isJumping && !isDashing && !stopped)  // Player has released the space key without holding it. Perform the action for when Space is pressed
         {   
             if (!spaceHeld)
@@ -131,7 +152,31 @@ public class movimento : MonoBehaviour
             }
             spaceHeld = false;
         }
+        */
 
+        else if ((Keyboard.current.anyKey.wasReleasedThisFrame) && (!Keyboard.current.pKey.wasReleasedThisFrame) && !Input.GetKey("p") && !isJumping && !isDashing && !stopped)  // Player has released the space key without holding it. Perform the action for when Space is pressed
+        {
+            if (!spaceHeld)
+            {
+                if (Time.time > canJump)
+                {
+                    isJumping = true;
+
+                    jumping.Play();
+
+                    animator.SetBool("jump", true);
+                    animator.SetBool("isOnGround", false);
+                    playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+                    playerRigidBody.gravityScale = jumpGravity; //new add
+                    canJump = Time.time + 1f;
+                }
+            }
+            spaceHeld = false;
+        }
+
+
+        /*
+        //OLD SYSTEM
         if (Input.GetKey(KeyCode.Space) && !isJumping && !isDashing && !stopped)
         {
             if (Time.timeSinceLevelLoad - spacePressedTime > minimumHeldDuration)  // Player has held the Space key for seconds. Consider it "held"
@@ -152,6 +197,82 @@ public class movimento : MonoBehaviour
                  
             }
         }
+        */
+        //NEW SYSTEM
+        if (Keyboard.current.anyKey.isPressed && (!Keyboard.current.pKey.isPressed) && !isJumping && !isDashing && !stopped)
+        {
+            if (Time.timeSinceLevelLoad - spacePressedTime > minimumHeldDuration)  // Player has held the Space key for seconds. Consider it "held"
+            {
+
+                if (Time.time > canSlide)
+                {
+                    isDashing = true;
+
+                    dashing.Play();
+
+                    animator.SetBool("dash", true);
+                    StartCoroutine(Dash());
+                    spaceHeld = true;
+                    canSlide = Time.time + 5f;
+                }
+
+
+            }
+        }
+        //---------------------------------------|
+
+        //CONTROLLO TASTI CONTROLLER
+
+        if (Gamepad.current != null) //verifica se controller connesso
+        {
+            if ((Gamepad.current.aButton.wasPressedThisFrame || Gamepad.current.bButton.wasPressedThisFrame || Gamepad.current.xButton.wasPressedThisFrame || Gamepad.current.yButton.wasPressedThisFrame) && !isJumping && !isDashing && !stopped) // Use has pressed the Space key. We don't know if they'll release or hold it, so keep track of when they started holding it.
+            {
+                spacePressedTime = Time.timeSinceLevelLoad;
+                spaceHeld = false;
+            }
+
+
+            else if ((Gamepad.current.aButton.wasReleasedThisFrame || Gamepad.current.bButton.wasReleasedThisFrame || Gamepad.current.xButton.wasReleasedThisFrame || Gamepad.current.yButton.wasReleasedThisFrame) && !isJumping && !isDashing && !stopped)  // Player has released the space key without holding it. Perform the action for when Space is pressed
+            {
+                if (!spaceHeld)
+                {
+                    if (Time.time > canJump)
+                    {
+                        isJumping = true;
+
+                        jumping.Play();
+
+                        animator.SetBool("jump", true);
+                        animator.SetBool("isOnGround", false);
+                        playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+                        playerRigidBody.gravityScale = jumpGravity; //new add
+                        canJump = Time.time + 1f;
+                    }
+                }
+                spaceHeld = false;
+            }
+
+
+            if ((Gamepad.current.aButton.isPressed || Gamepad.current.bButton.isPressed || Gamepad.current.xButton.isPressed || Gamepad.current.yButton.isPressed) && !isJumping && !isDashing && !stopped)
+            {
+                if (Time.timeSinceLevelLoad - spacePressedTime > minimumHeldDuration)  // Player has held the Space key for seconds. Consider it "held"
+                {
+                    if (Time.time > canSlide)
+                    {
+                        isDashing = true;
+
+                        dashing.Play();
+
+                        animator.SetBool("dash", true);
+                        StartCoroutine(Dash());
+                        spaceHeld = true;
+                        canSlide = Time.time + 5f;
+                    }
+                }
+            }
+        }
+
+
 
 
         if (!isJumping && !isDashing)
@@ -164,8 +285,8 @@ public class movimento : MonoBehaviour
             isRunning = false;
         }
 
-        
-        if(isOnFloor)
+
+        if (isOnFloor)
         {
             CreateDustFx();
         }
@@ -175,7 +296,7 @@ public class movimento : MonoBehaviour
             StopDustFx();
         }
 
-        
+
 
 
         if (isDashing)
@@ -192,12 +313,12 @@ public class movimento : MonoBehaviour
 
 
 
-        if(isRunning && isOnFloor &&!isOnPause &&!stopped)
+        if (isRunning && isOnFloor && !isOnPause && !stopped)
         {
             walking.mute = false;
         }
 
-        if(!isRunning || !isOnFloor || isOnPause ||stopped)
+        if (!isRunning || !isOnFloor || isOnPause || stopped)
         {
             walking.mute = true;
         }
@@ -207,10 +328,10 @@ public class movimento : MonoBehaviour
     {
 
         playerRigidBody.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
-        
+
         DecreaseEnergyBar();
-        
-        
+
+
 
         yield return new WaitForSeconds(dashingTime);
         yield return new WaitForSeconds(dashingCooldown);
@@ -231,13 +352,13 @@ public class movimento : MonoBehaviour
             {
                 direction = 1;
 
-                 Vector3 currentScale = player.transform.localScale;
+                Vector3 currentScale = player.transform.localScale;
                 currentScale.x *= -1;
                 player.transform.localScale = currentScale;
 
             }
 
-            else if(direction == 1)
+            else if (direction == 1)
             {
                 direction = -1;
 
@@ -245,22 +366,22 @@ public class movimento : MonoBehaviour
                 currentScale.x *= -1;
                 player.transform.localScale = currentScale;
 
-            } 
+            }
         }
 
 
-        if(collision.gameObject.tag == "floor")
+        if (collision.gameObject.tag == "floor")
         {
             isOnFloor = true;
             isJumping = false;
-            animator.SetBool("isOnGround",true);
+            animator.SetBool("isOnGround", true);
             animator.SetBool("jump", false);
         }
 
 
         if (playerHealthManager.life <= 0)
         {
-            animator.SetBool("run",false);
+            animator.SetBool("run", false);
             animator.SetBool("dash", false);
             animator.SetBool("jump", false);
             speed = 0;
@@ -272,7 +393,7 @@ public class movimento : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "floor")
+        if (collision.gameObject.tag == "floor")
         {
             isOnFloor = true;
         }
@@ -280,7 +401,7 @@ public class movimento : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "floor")
+        if (collision.gameObject.tag == "floor")
         {
             isOnFloor = false;
         }
@@ -312,4 +433,14 @@ public class movimento : MonoBehaviour
     {
         dust.Stop();
     }
+
+    void OnGUI()
+    {
+        Event e = Event.current;
+        if (e.isKey)
+        {
+            currentKeyPressed = e.keyCode;
+        }
+    }
+
 }
